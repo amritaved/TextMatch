@@ -1,0 +1,56 @@
+﻿@model TextMatch.Models.TextMatchModel
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@using (Html.BeginForm("MatchText", "TextMatch", FormMethod.Post))
+{
+    <form>
+        <h3><strong class = "text-danger">@Model.ErrorMessage</strong></h3>
+        <fieldset>
+            <div class="form-group row">
+                <div class="form-group form-label mt-4">
+                    @Html.LabelFor(model => model.InputText,"Input Text", new { @class = "form-label mt-4" })
+                    @Html.TextAreaFor(model => model.InputText, new { @class = "form-control", @id = "InputText" })
+                    @Html.ValidationMessageFor(model => model.InputText, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SubText,"Sub Text", new { @class = "form-label mt-4" })
+                    @Html.TextBoxFor(model => model.SubText, new { @class = "form-control", @id = "subText" })
+                    @Html.ValidationMessageFor(model => model.SubText, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <div class="mt-4">
+                        <input type="submit" class="btn btn-primary" value="Match text" />
+                        <input type="button" onclick="ResetForm();" class="btn btn-primary" value="Reset" />
+                    </div>
+                </div>
+                @if (Model.Output != null)
+                {
+                    <div class="form-group">
+                        <div class="form-label mt-4">
+                            <p>Output :</p>
+                            <strong> @Html.DisplayFor(model => model.Output, new { @id = "Output" })</strong>
+                        </div>
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </form>
+}
+<script>
+    function ResetForm() {
+        $("#InputText").val('');
+        $("#subText").val('');
+    }
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
